@@ -857,12 +857,100 @@ function showChapters(subject) {
 
 }
 
-
 function selectChapter(chapter) {
 
-    alert(
-        "आपने " + chapter + " चुना है।"
-    );
+    showPDFs(chapter);
+
+}
+
+
+function showPDFs(chapter) {
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="main-page">
+
+            <div class="header">
+
+                <h1>
+                    📄 PDF Study Material
+                </h1>
+
+                <p>
+                    ${chapter} की PDF सामग्री
+                </p>
+
+                <button
+                    class="logout"
+                    onclick="showLogin()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+
+            <div class="medium-container">
+
+
+                <div class="medium-card">
+
+                    <div class="medium-icon">
+                        📄
+                    </div>
+
+                    <h2>
+                        Chapter Notes
+                    </h2>
+
+                    <p>
+                        अभी PDF upload नहीं की गई है।
+                    </p>
+
+                    <br>
+
+                    <button
+                        onclick="alert('यहाँ बाद में PDF खुलेगी।')">
+
+                        Open PDF
+
+                    </button>
+
+                </div>
+
+
+                <div class="medium-card">
+
+                    <div class="medium-icon">
+                        📝
+                    </div>
+
+                    <h2>
+                        Important Questions
+                    </h2>
+
+                    <p>
+                        अभी PDF upload नहीं की गई है।
+                    </p>
+
+                    <br>
+
+                    <button
+                        onclick="alert('यहाँ बाद में PDF खुलेगी।')">
+
+                        Open PDF
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 /* ==========================================
