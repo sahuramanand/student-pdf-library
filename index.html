@@ -532,11 +532,146 @@ function showClass() {
     `;
 }
 
-
 function selectClass(className) {
 
+    showSemester(className);
+
+}
+
+
+function showSemester(className) {
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="main-page">
+
+            <div class="header">
+
+                <h1>
+                    📘 Semester चुनें
+                </h1>
+
+                <p>
+                    ${className} के लिए अपना Semester चुनें
+                </p>
+
+                <button
+                    class="logout"
+                    onclick="showLogin()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+
+            <div class="medium-container">
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 1')">
+
+                    <div class="medium-icon">
+                        1️⃣
+                    </div>
+
+                    <h2>
+                        Semester 1
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 2')">
+
+                    <div class="medium-icon">
+                        2️⃣
+                    </div>
+
+                    <h2>
+                        Semester 2
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 3')">
+
+                    <div class="medium-icon">
+                        3️⃣
+                    </div>
+
+                    <h2>
+                        Semester 3
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 4')">
+
+                    <div class="medium-icon">
+                        4️⃣
+                    </div>
+
+                    <h2>
+                        Semester 4
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 5')">
+
+                    <div class="medium-icon">
+                        5️⃣
+                    </div>
+
+                    <h2>
+                        Semester 5
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSemester('Semester 6')">
+
+                    <div class="medium-icon">
+                        6️⃣
+                    </div>
+
+                    <h2>
+                        Semester 6
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function selectSemester(semester) {
+
     alert(
-        "आपने " + className + " चुना है।"
+        "आपने " + semester + " चुना है।"
     );
 
 }
