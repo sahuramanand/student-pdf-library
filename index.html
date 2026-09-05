@@ -243,34 +243,6 @@ body{
    LOGIN PAGE
 ========================================== */
     
-function login() {
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    if (
-        email === "admin@example.com" &&
-        password === "admin123"
-    ) {
-
-        showAdmin();
-
-    }
-    else if (
-        email === "student@example.com" &&
-        password === "student123"
-    ) {
-
-        showMedium();
-
-    }
-    else {
-
-        alert("Email या Password गलत है।");
-
-    }
-
-}
 
 /* ==========================================
    LOGIN FUNCTION
