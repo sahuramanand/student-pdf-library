@@ -275,30 +275,30 @@ function login() {
 /* ==========================================
    LOGIN FUNCTION
 ========================================== */
+function login() {
 
-function login(){
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    const email =
-        document.getElementById("email").value.trim();
+    if (
+        email === "admin@example.com" &&
+        password === "admin123"
+    ) {
 
-    const password =
-        document.getElementById("password").value.trim();
+        showAdmin();
 
-
-    if(
-        email === "student@example.com"
-        &&
+    }
+    else if (
+        email === "student@example.com" &&
         password === "student123"
-    ){
+    ) {
 
         showMedium();
 
     }
-    else{
+    else {
 
-        alert(
-            "Email या Password गलत है।"
-        );
+        alert("Email या Password गलत है।");
 
     }
 
