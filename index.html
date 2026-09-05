@@ -432,41 +432,119 @@ function showMedium(){
 
 }
 
+function selectMedium(medium) {
 
-/* ==========================================
-   MEDIUM SELECT
-========================================== */
+    showClass();
 
-function selectMedium(medium){
+}
+
+
+function showClass() {
 
     document.getElementById("app").innerHTML = `
 
-        <div class="message-page">
+        <div class="main-page">
 
-            <div class="message-box">
+            <div class="header">
 
-                <h2>
-                    ✅ Medium Selected
-                </h2>
+                <h1>
+                    🎓 Class / Course चुनें
+                </h1>
 
                 <p>
-                    आपने <b>${medium}</b> चुना है।
+                    अपनी Class या Course चुनें
                 </p>
 
                 <button
-                    class="btn"
-                    onclick="showMedium()"
-                >
-                    ← वापस जाएँ
+                    class="logout"
+                    onclick="showLogin()">
+
+                    Logout
+
                 </button>
+
+            </div>
+
+
+            <div class="medium-container">
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectClass('B.Sc. 1st Year')">
+
+                    <div class="medium-icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        B.Sc. 1st Year
+                    </h2>
+
+                    <p>
+                        Undergraduate
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectClass('B.Sc. 2nd Year')">
+
+                    <div class="medium-icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        B.Sc. 2nd Year
+                    </h2>
+
+                    <p>
+                        Undergraduate
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectClass('B.Sc. 3rd Year')">
+
+                    <div class="medium-icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        B.Sc. 3rd Year
+                    </h2>
+
+                    <p>
+                        Undergraduate
+                    </p>
+
+                </div>
 
             </div>
 
         </div>
 
     `;
+}
+
+
+function selectClass(className) {
+
+    alert(
+        "आपने " + className + " चुना है।"
+    );
 
 }
+/* ==========================================
+   MEDIUM SELECT
+========================================== */
+
+
 
 
 /* ==========================================
