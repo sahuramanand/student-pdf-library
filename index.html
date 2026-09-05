@@ -242,12 +242,137 @@ body{
 /* ==========================================
    LOGIN PAGE
 ========================================== */
-    
+    function showLogin() {
+        
+        document.getElementById("app").innerHTML = `
+
+        <div class="login-page">
+
+            <div class="login-box">
+
+                <div class="logo">
+                    📚 Student PDF Library
+                </div>
+
+                <div class="subtitle">
+                    Student Study Material Portal
+                </div>
+
+                <input
+                    type="email"
+                    id="email"
+                    class="input"
+                    placeholder="Enter Email"
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    class="input"
+                    placeholder="Enter Password"
+                >
+
+                <button
+                    class="btn"
+                    onclick="login()">
+                    Login
+                </button>
+
+                <div class="demo">
+
+                    <b>Demo Student Login</b><br>
+
+                    Email: student@example.com<br>
+                    Password: student123
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+}
 
 /* ==========================================
    LOGIN FUNCTION
 ========================================== */
+function showLogin() {
 
+    document.getElementById("app").innerHTML = `
+
+        <div class="login-page">
+
+            <div class="login-box">
+
+                <div class="logo">
+                    📚 Student PDF Library
+                </div>
+
+                <div class="subtitle">
+                    Student Study Material Portal
+                </div>
+
+                <input
+                    type="email"
+                    id="email"
+                    class="input"
+                    placeholder="Enter Email"
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    class="input"
+                    placeholder="Enter Password"
+                >
+
+                <button
+                    class="btn"
+                    onclick="login()">
+                    Login
+                </button>
+
+                <div class="demo">
+
+                    <b>Demo Student Login</b><br>
+
+                    Email: student@example.com<br>
+                    Password: student123
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+function login() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value.trim();
+
+
+    if (
+        email === "student@example.com" &&
+        password === "student123"
+    ) {
+
+        showMedium();
+
+    } else {
+
+        alert("Email या Password गलत है।");
+
+    }
+
+}
 
 /* ==========================================
    MEDIUM PAGE
