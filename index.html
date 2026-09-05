@@ -664,12 +664,75 @@ function showSemester(className) {
     `;
 
 }
-
-
 function selectSemester(semester) {
 
+    showSubjects(semester);
+
+}
+
+
+function showSubjects(semester) {
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="main-page">
+
+            <div class="header">
+
+                <h1>
+                    📚 Subject चुनें
+                </h1>
+
+                <p>
+                    ${semester} के Subjects
+                </p>
+
+                <button
+                    class="logout"
+                    onclick="showLogin()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+
+            <div class="medium-container">
+
+
+                <div
+                    class="medium-card"
+                    onclick="selectSubject('Mathematics')">
+
+                    <div class="medium-icon">
+                        📐
+                    </div>
+
+                    <h2>
+                        Mathematics
+                    </h2>
+
+                    <p>
+                        गणित
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function selectSubject(subject) {
+
     alert(
-        "आपने " + semester + " चुना है।"
+        "आपने " + subject + " चुना है।"
     );
 
 }
