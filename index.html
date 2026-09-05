@@ -728,11 +728,140 @@ function showSubjects(semester) {
 
 }
 
-
 function selectSubject(subject) {
 
+    showChapters(subject);
+
+}
+
+
+function showChapters(subject) {
+
+    document.getElementById("app").innerHTML = `
+
+        <div class="main-page">
+
+            <div class="header">
+
+                <h1>
+                    📖 Chapter चुनें
+                </h1>
+
+                <p>
+                    ${subject} के Chapters
+                </p>
+
+                <button
+                    class="logout"
+                    onclick="showLogin()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+
+            <div class="medium-container">
+
+
+                <!-- Chapter 1 -->
+
+                <div
+                    class="medium-card"
+                    onclick="selectChapter('Chapter 1')">
+
+                    <div class="medium-icon">
+                        📘
+                    </div>
+
+                    <h2>
+                        अध्याय 1
+                    </h2>
+
+                    <p>
+                        भारतीय गणितज्ञों का योगदान और जीवनी
+                    </p>
+
+                </div>
+
+
+                <!-- Chapter 2 -->
+
+                <div
+                    class="medium-card"
+                    onclick="selectChapter('Chapter 2')">
+
+                    <div class="medium-icon">
+                        📗
+                    </div>
+
+                    <h2>
+                        अध्याय 2
+                    </h2>
+
+                    <p>
+                        अनुक्रमों का अभिसरण
+                    </p>
+
+                </div>
+
+
+                <!-- Chapter 3 -->
+
+                <div
+                    class="medium-card"
+                    onclick="selectChapter('Chapter 3')">
+
+                    <div class="medium-icon">
+                        📙
+                    </div>
+
+                    <h2>
+                        अध्याय 3
+                    </h2>
+
+                    <p>
+                        वास्तविक संख्याओं की श्रेणियों का अभिसरण
+                    </p>
+
+                </div>
+
+
+                <!-- Chapter 4 -->
+
+                <div
+                    class="medium-card"
+                    onclick="selectChapter('Chapter 4')">
+
+                    <div class="medium-icon">
+                        📕
+                    </div>
+
+                    <h2>
+                        अध्याय 4
+                    </h2>
+
+                    <p>
+                        सीमा एवं सातत्य
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function selectChapter(chapter) {
+
     alert(
-        "आपने " + subject + " चुना है।"
+        "आपने " + chapter + " चुना है।"
     );
 
 }
