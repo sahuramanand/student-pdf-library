@@ -1,236 +1,280 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Student PDF Library</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
 body{
-    font-family:Arial, sans-serif;
+    margin:0;
+    font-family:Arial,sans-serif;
     background:#f3f6fb;
     color:#172033;
 }
 
-/* ================= LOGIN PAGE ================= */
+button,
+input,
+select{
+    font:inherit;
+}
 
-.login-page{
-    min-height:100vh;
+button{
+    cursor:pointer;
+}
+
+.topbar{
+    background:#172554;
+    color:white;
+    padding:15px 20px;
+
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
-    padding:20px;
-    background:linear-gradient(135deg,#eaf2ff,#f4efff);
 }
 
-.login-box{
-    width:100%;
-    max-width:430px;
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+.card{
     background:white;
-    padding:35px;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,.07);
+    margin-bottom:18px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:16px;
+}
+
+.tile{
+    background:white;
+    padding:25px;
+
+    border-radius:16px;
+    border:1px solid #e5e7eb;
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.tile:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.hero{
+    background:
+        linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:white;
+
+    padding:28px;
+
     border-radius:20px;
-    box-shadow:0 12px 35px rgba(0,0,0,0.10);
+
+    margin-bottom:20px;
 }
 
-.logo{
-    text-align:center;
-    font-size:30px;
-    font-weight:bold;
-    color:#1e3a8a;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    text-align:center;
-    color:#6b7280;
-    margin-bottom:28px;
-    font-size:16px;
+.form{
+    display:grid;
+    gap:12px;
 }
 
 .input{
     width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:1px solid #d1d5db;
-    border-radius:11px;
-    font-size:16px;
-    outline:none;
-}
+    padding:12px;
 
-.input:focus{
-    border-color:#2563eb;
+    border:1px solid #d1d5db;
+    border-radius:10px;
 }
 
 .btn{
-    width:100%;
-    padding:14px;
+    padding:11px 15px;
+
     border:none;
-    border-radius:11px;
+
+    border-radius:10px;
+
     background:#2563eb;
     color:white;
-    font-size:17px;
-    cursor:pointer;
 }
 
-.btn:hover{
-    background:#1d4ed8;
+.gray{
+    background:#e5e7eb;
+    color:#111827;
 }
 
-.demo{
-    margin-top:20px;
-    padding:14px;
-    border-radius:11px;
-    background:#eff6ff;
-    color:#1e3a8a;
-    font-size:14px;
-    line-height:1.6;
+.red{
+    background:#dc2626;
 }
 
+.green{
+    background:#059669;
+}
 
-/* ================= MAIN PAGE ================= */
-
-.main-page{
+.login-page{
     min-height:100vh;
-    padding:25px 15px;
-}
-
-.header{
-    max-width:1000px;
-    margin:0 auto 30px;
-    padding:30px;
-    border-radius:20px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:white;
-    text-align:center;
-}
-
-.header h1{
-    margin-bottom:8px;
-    font-size:30px;
-}
-
-.header p{
-    font-size:16px;
-}
-
-.medium-container{
-    max-width:900px;
-    margin:auto;
 
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    place-items:center;
 
-    gap:20px;
+    padding:20px;
+
+    background:
+        linear-gradient(135deg,#edf4ff,#f5f0ff);
 }
 
-.medium-card{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    text-align:center;
+.login-box{
+    width:min(430px,100%);
+}
 
-    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+.role-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.role{
+    padding:20px;
+
+    border-radius:14px;
+
+    background:#eef2ff;
+
+    text-align:center;
 
     cursor:pointer;
 
-    transition:0.2s;
+    border:2px solid transparent;
 }
 
-.medium-card:hover{
-    transform:translateY(-5px);
+.role.active{
+    border-color:#2563eb;
 }
 
-.medium-icon{
-    font-size:50px;
-    margin-bottom:15px;
-}
-
-.medium-card h2{
-    margin-bottom:10px;
-    color:#172033;
-}
-
-.medium-card p{
-    color:#6b7280;
-}
-
-.logout{
-    width:auto;
-    margin-top:18px;
-    padding:10px 18px;
-    background:#dc2626;
-    font-size:14px;
-}
-
-.logout:hover{
-    background:#b91c1c;
-}
-
-
-/* ================= MESSAGE ================= */
-
-.message-page{
-    min-height:100vh;
+.item{
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
-    padding:20px;
+
+    gap:12px;
+
+    padding:14px 0;
+
+    border-bottom:
+        1px solid #edf0f4;
 }
 
-.message-box{
-    width:100%;
-    max-width:500px;
+.tabs{
+    display:flex;
+    gap:8px;
+    overflow:auto;
+
+    margin-bottom:18px;
+}
+
+.tab{
+    padding:10px 13px;
+
+    border:0;
+    border-radius:9px;
+
+    background:#e5e7eb;
+
+    white-space:nowrap;
+}
+
+.tab.active{
+    background:#2563eb;
+    color:white;
+}
+
+.viewer{
+    position:fixed;
+
+    inset:0;
+
+    background:#000b;
+
+    z-index:100;
+
+    padding:12px;
+}
+
+.viewer-box{
     background:white;
-    padding:35px;
-    text-align:center;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    height:92vh;
+
+    width:min(1100px,100%);
+
+    margin:auto;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
 }
 
-.message-box h2{
-    margin-bottom:12px;
-    color:#1e3a8a;
+.viewer-head{
+    padding:12px 15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid #ddd;
 }
 
-.message-box p{
-    color:#6b7280;
-    margin-bottom:20px;
+.viewer-frame{
+    flex:1;
+
+    width:100%;
+
+    border:0;
 }
-
-
-/* ================= MOBILE ================= */
 
 @media(max-width:600px){
 
-    .login-box{
-        padding:25px;
+    .topbar{
+        padding:12px;
     }
 
-    .logo{
-        font-size:25px;
-    }
-
-    .header{
-        padding:25px 18px;
-    }
-
-    .header h1{
-        font-size:25px;
+    .role-grid{
+        grid-template-columns:1fr;
     }
 
 }
 
 </style>
-</head>
 
+</head>
 
 <body>
 
@@ -239,51 +283,191 @@ body{
 
 <script>
 
-/* ==========================================
-   LOGIN PAGE
-========================================== */
-    function showLogin() {
-        
-        document.getElementById("app").innerHTML = `
+/* ====================================================
+   SUPABASE CONFIG
+==================================================== */
+
+const SUPABASE_URL =
+"https://YOUR-PROJECT-ID.supabase.co";
+
+const SUPABASE_KEY =
+"YOUR-PUBLISHABLE-KEY";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* ====================================================
+   STATE
+==================================================== */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let selectedMedium = null;
+
+let selectedClass = null;
+
+let selectedSemester = null;
+
+let selectedSubject = null;
+
+let selectedChapter = null;
+
+let pdfWindow = null;
+
+let loginRole = "student";
+
+let adminTab = "classes";
+
+
+/* ====================================================
+   HELPERS
+==================================================== */
+
+function esc(text){
+
+    return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function app(){
+
+    document.getElementById("app")
+        .innerHTML = render();
+
+}
+
+
+/* ====================================================
+   LOGIN
+==================================================== */
+
+function render(){
+
+    if(!currentUser){
+
+        return loginPage();
+
+    }
+
+    if(currentProfile?.role === "admin"){
+
+        return topbar() + adminPage();
+
+    }
+
+    return topbar() + studentPage();
+
+}
+
+
+function loginPage(){
+
+    return `
 
         <div class="login-page">
 
-            <div class="login-box">
+            <div class="card login-box">
 
-                <div class="logo">
+                <h1 style="text-align:center;color:#1e3a8a">
                     📚 Student PDF Library
+                </h1>
+
+                <p style="text-align:center;color:#6b7280">
+                    Online Study Material Portal
+                </p>
+
+
+                <div class="role-grid">
+
+                    <div
+                        class="role ${loginRole==="student"?"active":""}"
+                        onclick="loginRole='student';app()">
+
+                        🎓
+
+                        <br>
+
+                        <b>Student Login</b>
+
+                    </div>
+
+
+                    <div
+                        class="role ${loginRole==="admin"?"active":""}"
+                        onclick="loginRole='admin';app()">
+
+                        👨‍💻
+
+                        <br>
+
+                        <b>Admin Login</b>
+
+                    </div>
+
                 </div>
 
-                <div class="subtitle">
-                    Student Study Material Portal
+
+                <div class="form">
+
+                    <input
+                        id="loginEmail"
+                        class="input"
+                        type="email"
+                        placeholder="Email">
+
+
+                    <input
+                        id="loginPassword"
+                        class="input"
+                        type="password"
+                        placeholder="Password">
+
+
+                    <button
+                        class="btn"
+                        onclick="doLogin()">
+
+                        ${loginRole==="admin"
+                            ?"Admin Login"
+                            :"Student Login"}
+
+                    </button>
+
                 </div>
 
-                <input
-                    type="email"
-                    id="email"
-                    class="input"
-                    placeholder="Enter Email"
-                >
 
-                <input
-                    type="password"
-                    id="password"
-                    class="input"
-                    placeholder="Enter Password"
-                >
+                <div class="card"
+                     style="margin-top:15px;background:#eff6ff">
 
-                <button
-                    class="btn"
-                    onclick="login()">
-                    Login
-                </button>
+                    ${
+                        loginRole==="admin"
 
-                <div class="demo">
+                        ?
 
-                    <b>Demo Student Login</b><br>
+                        `<small>
+                            Admin account Supabase Authentication में
+                            बनाना होगा।
+                         </small>`
 
-                    Email: student@example.com<br>
-                    Password: student123
+                        :
+
+                        `<small>
+                            Student account से study material access करें।
+                         </small>`
+
+                    }
 
                 </div>
 
@@ -292,171 +476,153 @@ body{
         </div>
 
     `;
-}
 
-/* ==========================================
-   LOGIN FUNCTION
-========================================== */
-function showLogin() {
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="login-page">
-
-            <div class="login-box">
-
-                <div class="logo">
-                    📚 Student PDF Library
-                </div>
-
-                <div class="subtitle">
-                    Student Study Material Portal
-                </div>
-
-                <input
-                    type="email"
-                    id="email"
-                    class="input"
-                    placeholder="Enter Email"
-                >
-
-                <input
-                    type="password"
-                    id="password"
-                    class="input"
-                    placeholder="Enter Password"
-                >
-
-                <button
-                    class="btn"
-                    onclick="login()">
-                    Login
-                </button>
-
-                <div class="demo">
-
-                    <b>Demo Student Login</b><br>
-
-                    Email: student@example.com<br>
-                    Password: student123
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
 }
 
 
-function login() {
+async function doLogin(){
 
     const email =
-        document.getElementById("email").value.trim();
+        document.getElementById("loginEmail")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("password").value.trim();
+        document.getElementById("loginPassword")
+        .value;
+
+    if(!email || !password){
+
+        alert("Email और Password भरें।");
+
+        return;
+
+    }
 
 
-    if (
-        email === "student@example.com" &&
-        password === "student123"
-    ) {
+    const {data,error} =
+        await supabaseClient.auth
+        .signInWithPassword({
 
-        showMedium();
+            email:email,
 
-    } else {
+            password:password
 
-        alert("Email या Password गलत है।");
+        });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    currentUser = data.user;
+
+
+    await loadProfile();
+
+
+    if(
+        loginRole==="admin"
+        &&
+        currentProfile?.role!=="admin"
+    ){
+
+        await supabaseClient.auth.signOut();
+
+        currentUser=null;
+
+        currentProfile=null;
+
+        alert("यह account Admin नहीं है।");
+
+        app();
+
+        return;
+
+    }
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   PROFILE
+==================================================== */
+
+async function loadProfile(){
+
+    const {data,error} =
+        await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id",currentUser.id)
+        .single();
+
+
+    if(!error){
+
+        currentProfile=data;
 
     }
 
 }
 
-/* ==========================================
-   MEDIUM PAGE
-========================================== */
 
-function showMedium(){
+/* ====================================================
+   LOGOUT
+==================================================== */
 
-    document.getElementById("app").innerHTML = `
+async function logout(){
 
-        <div class="main-page">
+    await supabaseClient.auth.signOut();
 
+    currentUser=null;
 
-            <div class="header">
+    currentProfile=null;
 
-                <h1>
-                    🌐 Medium चुनें
-                </h1>
+    selectedMedium=null;
 
-                <p>
-                    अपना अध्ययन माध्यम चुनें
-                </p>
+    selectedClass=null;
 
+    selectedSemester=null;
 
-                <button
-                    class="btn logout"
-                    onclick="showLogin()"
-                >
-                    Logout
-                </button>
+    selectedSubject=null;
 
-            </div>
+    selectedChapter=null;
+
+    app();
+
+}
 
 
+/* ====================================================
+   TOPBAR
+==================================================== */
 
-            <div class="medium-container">
+function topbar(){
 
+    return `
 
-                <!-- HINDI -->
+        <div class="topbar">
 
-                <div
-                    class="medium-card"
-                    onclick="selectMedium('हिंदी माध्यम')"
-                >
+            <b>
+                📚 Student PDF Library
+            </b>
 
-                    <div class="medium-icon">
-                        🇮🇳
-                    </div>
+            <button
+                class="btn gray"
+                onclick="logout()">
 
-                    <h2>
-                        हिंदी माध्यम
-                    </h2>
+                Logout
 
-                    <p>
-                        Hindi Medium
-                    </p>
-
-                </div>
-
-
-
-                <!-- ENGLISH -->
-
-                <div
-                    class="medium-card"
-                    onclick="selectMedium('English Medium')"
-                >
-
-                    <div class="medium-icon">
-                        🇬🇧
-                    </div>
-
-                    <h2>
-                        English Medium
-                    </h2>
-
-                    <p>
-                        English Medium
-                    </p>
-
-                </div>
-
-
-            </div>
-
+            </button>
 
         </div>
 
@@ -464,519 +630,1886 @@ function showMedium(){
 
 }
 
-function selectMedium(medium) {
 
-    showClass();
+/* ====================================================
+   STUDENT
+==================================================== */
+
+function studentPage(){
+
+    if(!selectedMedium){
+
+        return mediumPage();
+
+    }
+
+    if(!selectedClass){
+
+        return classPage();
+
+    }
+
+    if(!selectedSemester){
+
+        return semesterPage();
+
+    }
+
+    if(!selectedSubject){
+
+        return subjectPage();
+
+    }
+
+    if(!selectedChapter){
+
+        return chapterPage();
+
+    }
+
+    return materialPage();
 
 }
 
 
-function showClass() {
+/* ====================================================
+   MEDIUM
+==================================================== */
 
-    document.getElementById("app").innerHTML = `
+async function mediumPage(){
 
-        <div class="main-page">
+    const result =
+        await supabaseClient
+        .from("media")
+        .select("*")
+        .order("id");
 
-            <div class="header">
+    const list=result.data || [];
+
+    return selectionPage(
+        "🌐 Medium चुनें",
+        list,
+        "chooseMedium",
+        "🌐"
+    );
+
+}
+
+
+function selectionPage(title,list,fn,icon){
+
+    return `
+
+        <main class="container">
+
+            <div class="hero">
 
                 <h1>
-                    🎓 Class / Course चुनें
+                    ${title}
                 </h1>
 
                 <p>
-                    अपनी Class या Course चुनें
+                    आगे बढ़ने के लिए option चुनें।
                 </p>
 
-                <button
-                    class="logout"
-                    onclick="showLogin()">
-
-                    Logout
-
-                </button>
-
             </div>
 
 
-            <div class="medium-container">
+            <div class="grid">
 
+                ${
+                    list.length
 
-                <div
-                    class="medium-card"
-                    onclick="selectClass('B.Sc. 1st Year')">
+                    ?
 
-                    <div class="medium-icon">
-                        🎓
-                    </div>
+                    list.map(x=>`
 
-                    <h2>
-                        B.Sc. 1st Year
-                    </h2>
+                        <div
+                            class="tile"
+                            onclick="${fn}('${x.id}')">
 
-                    <p>
-                        Undergraduate
-                    </p>
+                            <div style="font-size:35px">
+                                ${icon}
+                            </div>
 
-                </div>
+                            <h3>
+                                ${esc(x.name)}
+                            </h3>
 
+                            <p class="muted">
+                                Open →
+                            </p>
 
-                <div
-                    class="medium-card"
-                    onclick="selectClass('B.Sc. 2nd Year')">
+                        </div>
 
-                    <div class="medium-icon">
-                        🎓
-                    </div>
+                    `).join("")
 
-                    <h2>
-                        B.Sc. 2nd Year
-                    </h2>
+                    :
 
-                    <p>
-                        Undergraduate
-                    </p>
+                    `
+                        <div class="card">
+                            अभी कोई option उपलब्ध नहीं है।
+                        </div>
+                    `
 
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectClass('B.Sc. 3rd Year')">
-
-                    <div class="medium-icon">
-                        🎓
-                    </div>
-
-                    <h2>
-                        B.Sc. 3rd Year
-                    </h2>
-
-                    <p>
-                        Undergraduate
-                    </p>
-
-                </div>
+                }
 
             </div>
 
-        </div>
-
-    `;
-}
-
-function selectClass(className) {
-
-    showSemester(className);
-
-}
-function showSemester(className) {
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="main-page">
-
-            <div class="header">
-
-                <h1>
-                    📘 Semester चुनें
-                </h1>
-
-                <p>
-                    ${className} के लिए अपना Semester चुनें
-                </p>
-
-                <button
-                    class="logout"
-                    onclick="showLogin()">
-
-                    Logout
-
-                </button>
-
-            </div>
-
-
-            <div class="medium-container">
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 1')">
-
-                    <div class="medium-icon">
-                        1️⃣
-                    </div>
-
-                    <h2>
-                        Semester 1
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 2')">
-
-                    <div class="medium-icon">
-                        2️⃣
-                    </div>
-
-                    <h2>
-                        Semester 2
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 3')">
-
-                    <div class="medium-icon">
-                        3️⃣
-                    </div>
-
-                    <h2>
-                        Semester 3
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 4')">
-
-                    <div class="medium-icon">
-                        4️⃣
-                    </div>
-
-                    <h2>
-                        Semester 4
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 5')">
-
-                    <div class="medium-icon">
-                        5️⃣
-                    </div>
-
-                    <h2>
-                        Semester 5
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSemester('Semester 6')">
-
-                    <div class="medium-icon">
-                        6️⃣
-                    </div>
-
-                    <h2>
-                        Semester 6
-                    </h2>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-function selectSemester(semester) {
-
-    showSubjects(semester);
-
-}
-
-
-function showSubjects(semester) {
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="main-page">
-
-            <div class="header">
-
-                <h1>
-                    📚 Subject चुनें
-                </h1>
-
-                <p>
-                    ${semester} के Subjects
-                </p>
-
-                <button
-                    class="logout"
-                    onclick="showLogin()">
-
-                    Logout
-
-                </button>
-
-            </div>
-
-
-            <div class="medium-container">
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectSubject('Mathematics')">
-
-                    <div class="medium-icon">
-                        📐
-                    </div>
-
-                    <h2>
-                        Mathematics
-                    </h2>
-
-                    <p>
-                        गणित
-                    </p>
-
-                </div>
-
-
-            </div>
-
-        </div>
+        </main>
 
     `;
 
 }
 
-function selectSubject(subject) {
 
-    showChapters(subject);
+async function chooseMedium(id){
 
-}
+    const {data} =
+        await supabaseClient
+        .from("media")
+        .select("*")
+        .eq("id",id)
+        .single();
 
+    selectedMedium=data;
 
-function showChapters(subject) {
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="main-page">
-
-            <div class="header">
-
-                <h1>
-                    📖 Chapter चुनें
-                </h1>
-
-                <p>
-                    ${subject} के Chapters
-                </p>
-
-                <button
-                    class="logout"
-                    onclick="showLogin()">
-
-                    Logout
-
-                </button>
-
-            </div>
-
-
-            <div class="medium-container">
-
-
-                <!-- Chapter 1 -->
-
-                <div
-                    class="medium-card"
-                    onclick="selectChapter('Chapter 1')">
-
-                    <div class="medium-icon">
-                        📘
-                    </div>
-
-                    <h2>
-                        अध्याय 1
-                    </h2>
-
-                    <p>
-                        भारतीय गणितज्ञों का योगदान और जीवनी
-                    </p>
-
-                </div>
-
-
-                <!-- Chapter 2 -->
-
-                <div
-                    class="medium-card"
-                    onclick="selectChapter('Chapter 2')">
-
-                    <div class="medium-icon">
-                        📗
-                    </div>
-
-                    <h2>
-                        अध्याय 2
-                    </h2>
-
-                    <p>
-                        अनुक्रमों का अभिसरण
-                    </p>
-
-                </div>
-
-
-                <!-- Chapter 3 -->
-
-                <div
-                    class="medium-card"
-                    onclick="selectChapter('Chapter 3')">
-
-                    <div class="medium-icon">
-                        📙
-                    </div>
-
-                    <h2>
-                        अध्याय 3
-                    </h2>
-
-                    <p>
-                        वास्तविक संख्याओं की श्रेणियों का अभिसरण
-                    </p>
-
-                </div>
-
-
-                <!-- Chapter 4 -->
-
-                <div
-                    class="medium-card"
-                    onclick="selectChapter('Chapter 4')">
-
-                    <div class="medium-icon">
-                        📕
-                    </div>
-
-                    <h2>
-                        अध्याय 4
-                    </h2>
-
-                    <p>
-                        सीमा एवं सातत्य
-                    </p>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-function selectChapter(chapter) {
-
-    showPDFs(chapter);
+    app();
 
 }
 
 
-function showPDFs(chapter) {
+/* ====================================================
+   CLASS
+==================================================== */
 
-    document.getElementById("app").innerHTML = `
+async function classPage(){
 
-        <div class="main-page">
+    const {data} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .order("id");
 
-            <div class="header">
+    return selectionPage(
+        "🎓 Class / Course चुनें",
+        data || [],
+        "chooseClass",
+        "🎓"
+    );
+
+}
+
+
+async function chooseClass(id){
+
+    const {data} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    selectedClass=data;
+
+    app();
+
+}
+
+
+/* ====================================================
+   SEMESTER
+==================================================== */
+
+async function semesterPage(){
+
+    const {data} =
+        await supabaseClient
+        .from("semesters")
+        .select("*")
+        .eq("class_id",selectedClass.id)
+        .order("id");
+
+    return selectionPage(
+        "📘 Semester चुनें",
+        data || [],
+        "chooseSemester",
+        "📘"
+    );
+
+}
+
+
+async function chooseSemester(id){
+
+    const {data} =
+        await supabaseClient
+        .from("semesters")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    selectedSemester=data;
+
+    app();
+
+}
+
+
+/* ====================================================
+   SUBJECT
+==================================================== */
+
+async function subjectPage(){
+
+    const {data} =
+        await supabaseClient
+        .from("subjects")
+        .select("*")
+        .eq("class_id",selectedClass.id)
+        .eq("semester_id",selectedSemester.id)
+        .or(
+            `medium_id.is.null,medium_id.eq.${selectedMedium.id}`
+        )
+        .order("id");
+
+    return selectionPage(
+        "📚 Subject चुनें",
+        data || [],
+        "chooseSubject",
+        "📚"
+    );
+
+}
+
+
+async function chooseSubject(id){
+
+    const {data} =
+        await supabaseClient
+        .from("subjects")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    selectedSubject=data;
+
+    app();
+
+}
+
+
+/* ====================================================
+   CHAPTER
+==================================================== */
+
+async function chapterPage(){
+
+    const {data} =
+        await supabaseClient
+        .from("chapters")
+        .select("*")
+        .eq("subject_id",selectedSubject.id)
+        .order("id");
+
+    return selectionPage(
+        "📖 Chapter चुनें",
+        data || [],
+        "chooseChapter",
+        "📖"
+    );
+
+}
+
+
+async function chooseChapter(id){
+
+    const {data} =
+        await supabaseClient
+        .from("chapters")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    selectedChapter=data;
+
+    app();
+
+}
+
+
+/* ====================================================
+   MATERIALS
+==================================================== */
+
+async function materialPage(){
+
+    const {data} =
+        await supabaseClient
+        .from("materials")
+        .select("*")
+        .eq("chapter_id",selectedChapter.id)
+        .order("created_at");
+
+    const list=data || [];
+
+    return `
+
+        <main class="container">
+
+            <button
+                class="btn gray"
+                onclick="selectedChapter=null;app()">
+
+                ← Back
+
+            </button>
+
+
+            <div class="hero"
+                 style="margin-top:15px">
 
                 <h1>
                     📄 PDF Study Material
                 </h1>
 
                 <p>
-                    ${chapter} की PDF सामग्री
+                    ${esc(selectedChapter.name)}
                 </p>
 
-                <button
-                    class="logout"
-                    onclick="showLogin()">
+            </div>
 
-                    Logout
+
+            ${
+                list.length
+
+                ?
+
+                list.map(p=>`
+
+                    <div class="card item">
+
+                        <div>
+
+                            <b>
+                                📄 ${esc(p.title)}
+                            </b>
+
+                            <div class="small muted">
+
+                                ${esc(
+                                    p.description || ""
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="btn"
+                            onclick="readPdf('${p.id}')">
+
+                            Read PDF
+
+                        </button>
+
+                    </div>
+
+                `).join("")
+
+                :
+
+                `
+                    <div class="card">
+
+                        <h3>
+                            अभी PDF उपलब्ध नहीं है।
+                        </h3>
+
+                    </div>
+                `
+            }
+
+        </main>
+
+    `;
+
+}
+
+
+async function readPdf(id){
+
+    const {data,error} =
+        await supabaseClient
+        .from("materials")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    const result =
+        await supabaseClient
+        .storage
+        .from("study-pdfs")
+        .createSignedUrl(
+            data.storage_path,
+            3600
+        );
+
+
+    if(result.error){
+
+        alert(result.error.message);
+
+        return;
+
+    }
+
+
+    pdfWindow={
+        title:data.title,
+        url:result.data.signedUrl
+    };
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN
+==================================================== */
+
+function adminPage(){
+
+    const tabs=[
+        ["classes","Classes"],
+        ["media","Medium"],
+        ["semesters","Semesters"],
+        ["subjects","Subjects"],
+        ["chapters","Chapters"],
+        ["pdfs","PDF Upload"]
+    ];
+
+
+    let body="";
+
+
+    if(adminTab==="classes")
+        body=adminClasses();
+
+    if(adminTab==="media")
+        body=adminMedia();
+
+    if(adminTab==="semesters")
+        body=adminSemesters();
+
+    if(adminTab==="subjects")
+        body=adminSubjects();
+
+    if(adminTab==="chapters")
+        body=adminChapters();
+
+    if(adminTab==="pdfs")
+        body=adminPdfs();
+
+
+    return `
+
+        <main class="container">
+
+            <div class="hero">
+
+                <h1>
+                    👨‍💻 Admin Dashboard
+                </h1>
+
+                <p>
+                    पूरा Study Portal manage करें।
+                </p>
+
+            </div>
+
+
+            <div class="tabs">
+
+                ${tabs.map(t=>`
+
+                    <button
+                        class="tab
+                        ${adminTab===t[0]?"active":""}"
+                        onclick="
+                            adminTab='${t[0]}';
+                            app()
+                        ">
+
+                        ${t[1]}
+
+                    </button>
+
+                `).join("")}
+
+            </div>
+
+
+            ${body}
+
+        </main>
+
+    `;
+
+}
+
+
+/* ====================================================
+   ADMIN CLASSES
+==================================================== */
+
+async function adminClasses(){
+
+    const {data} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .order("id");
+
+
+    return adminListPage(
+        "🎓 Classes",
+        "newClass",
+        "Class / Course name",
+        "addClass",
+        data || [],
+        "editClass",
+        "deleteClass"
+    );
+
+}
+
+
+function adminListPage(
+    title,
+    inputId,
+    placeholder,
+    addFunction,
+    list,
+    editFunction,
+    deleteFunction
+){
+
+    return `
+
+        <div class="card">
+
+            <h2>
+                ${title}
+            </h2>
+
+            <div class="form">
+
+                <input
+                    id="${inputId}"
+                    class="input"
+                    placeholder="${placeholder}">
+
+                <button
+                    class="btn"
+                    onclick="${addFunction}()">
+
+                    + Add
 
                 </button>
 
             </div>
 
+        </div>
 
-            <div class="medium-container">
 
+        <div class="card">
 
-                <div class="medium-card">
+            <h2>
+                List
+            </h2>
 
-                    <div class="medium-icon">
-                        📄
+            ${
+                list.map(x=>`
+
+                    <div class="item">
+
+                        <b>
+                            ${esc(x.name)}
+                        </b>
+
+                        <div>
+
+                            <button
+                                class="btn gray"
+                                onclick="${editFunction}('${x.id}')">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="btn red"
+                                onclick="${deleteFunction}('${x.id}')">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
                     </div>
 
-                    <h2>
-                        Chapter Notes
-                    </h2>
+                `).join("")
+            }
 
-                    <p>
-                        अभी PDF upload नहीं की गई है।
-                    </p>
+        </div>
 
-                    <br>
+    `;
+
+}
+
+
+async function addClass(){
+
+    const name =
+        document.getElementById("newClass")
+        .value.trim();
+
+
+    if(!name)return;
+
+
+    const {error} =
+        await supabaseClient
+        .from("classes")
+        .insert({name});
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    app();
+
+}
+
+
+async function editClass(id){
+
+    const old =
+        await supabaseClient
+        .from("classes")
+        .select("name")
+        .eq("id",id)
+        .single();
+
+
+    const name =
+        prompt(
+            "New class name:",
+            old.data.name
+        );
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("classes")
+        .update({name})
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+async function deleteClass(id){
+
+    if(!confirm("Class delete करें?"))
+        return;
+
+
+    await supabaseClient
+        .from("classes")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN MEDIUM
+==================================================== */
+
+async function adminMedia(){
+
+    const {data} =
+        await supabaseClient
+        .from("media")
+        .select("*")
+        .order("id");
+
+
+    return adminListPage(
+        "🌐 Medium",
+        "newMedium",
+        "Medium name",
+        "addMedium",
+        data || [],
+        "editMedium",
+        "deleteMedium"
+    );
+
+}
+
+
+async function addMedium(){
+
+    const name =
+        document.getElementById("newMedium")
+        .value.trim();
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("media")
+        .insert({name});
+
+
+    app();
+
+}
+
+
+async function editMedium(id){
+
+    const {data} =
+        await supabaseClient
+        .from("media")
+        .select("name")
+        .eq("id",id)
+        .single();
+
+
+    const name =
+        prompt("New medium name:",data.name);
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("media")
+        .update({name})
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+async function deleteMedium(id){
+
+    if(!confirm("Medium delete करें?"))
+        return;
+
+
+    await supabaseClient
+        .from("media")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN SEMESTERS
+==================================================== */
+
+async function adminSemesters(){
+
+    const {data:classes} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .order("id");
+
+
+    const {data:semesters} =
+        await supabaseClient
+        .from("semesters")
+        .select("*")
+        .order("id");
+
+
+    return `
+
+        <div class="card">
+
+            <h2>
+                📘 Add Semester
+            </h2>
+
+            <div class="form">
+
+                <select
+                    id="semesterClass"
+                    class="input">
+
+                    ${
+                        (classes||[])
+                        .map(c=>`
+
+                            <option value="${c.id}">
+                                ${esc(c.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <input
+                    id="newSemester"
+                    class="input"
+                    placeholder="Semester name">
+
+
+                <button
+                    class="btn"
+                    onclick="addSemester()">
+
+                    + Add Semester
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Semester List
+            </h2>
+
+            ${
+                (semesters||[])
+                .map(s=>`
+
+                    <div class="item">
+
+                        <div>
+
+                            <b>
+                                ${esc(s.name)}
+                            </b>
+
+                            <div class="small muted">
+
+                                ${
+                                    esc(
+                                        classes
+                                        ?.find(
+                                            c=>c.id===s.class_id
+                                        )
+                                        ?.name || ""
+                                    )
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <button
+                                class="btn gray"
+                                onclick="editSemester('${s.id}')">
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="btn red"
+                                onclick="deleteSemester('${s.id}')">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+async function addSemester(){
+
+    const name =
+        document.getElementById("newSemester")
+        .value.trim();
+
+
+    const class_id =
+        document.getElementById("semesterClass")
+        .value;
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("semesters")
+        .insert({
+            name,
+            class_id
+        });
+
+
+    app();
+
+}
+
+
+async function editSemester(id){
+
+    const {data} =
+        await supabaseClient
+        .from("semesters")
+        .select("name")
+        .eq("id",id)
+        .single();
+
+
+    const name =
+        prompt("New semester name:",data.name);
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("semesters")
+        .update({name})
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+async function deleteSemester(id){
+
+    if(!confirm("Semester delete करें?"))
+        return;
+
+
+    await supabaseClient
+        .from("semesters")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN SUBJECTS
+==================================================== */
+
+async function adminSubjects(){
+
+    const {data:classes} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .order("id");
+
+
+    const {data:semesters} =
+        await supabaseClient
+        .from("semesters")
+        .select("*")
+        .order("id");
+
+
+    const {data:media} =
+        await supabaseClient
+        .from("media")
+        .select("*")
+        .order("id");
+
+
+    const {data:subjects} =
+        await supabaseClient
+        .from("subjects")
+        .select("*")
+        .order("id");
+
+
+    return `
+
+        <div class="card">
+
+            <h2>
+                📚 Add Subject
+            </h2>
+
+            <div class="form">
+
+                <select
+                    id="subjectClass"
+                    class="input"
+                    onchange="refreshSubjectSemesters()">
+
+                    ${
+                        (classes||[])
+                        .map(c=>`
+
+                            <option value="${c.id}">
+                                ${esc(c.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <select
+                    id="subjectSemester"
+                    class="input">
+                </select>
+
+
+                <select
+                    id="subjectMedium"
+                    class="input">
+
+                    <option value="">
+                        All Medium
+                    </option>
+
+                    ${
+                        (media||[])
+                        .map(m=>`
+
+                            <option value="${m.id}">
+                                ${esc(m.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <input
+                    id="newSubject"
+                    class="input"
+                    placeholder="Subject name">
+
+
+                <button
+                    class="btn"
+                    onclick="addSubject()">
+
+                    + Add Subject
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Subjects
+            </h2>
+
+            ${
+                (subjects||[])
+                .map(s=>`
+
+                    <div class="item">
+
+                        <div>
+
+                            <b>
+                                ${esc(s.name)}
+                            </b>
+
+                        </div>
+
+                        <div>
+
+                            <button
+                                class="btn gray"
+                                onclick="editSubject('${s.id}')">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="btn red"
+                                onclick="deleteSubject('${s.id}')">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+
+        <script>
+            setTimeout(refreshSubjectSemesters,50);
+        <\/script>
+
+    `;
+
+}
+
+
+function refreshSubjectSemesters(){
+
+    const classId =
+        document.getElementById("subjectClass");
+
+    const semester =
+        document.getElementById("subjectSemester");
+
+
+    if(!classId || !semester)return;
+
+
+    const list =
+        [];
+
+    supabaseClient
+        .from("semesters")
+        .select("*")
+        .eq("class_id",classId.value)
+        .order("id")
+        .then(result=>{
+
+            semester.innerHTML =
+                (result.data||[])
+                .map(s=>`
+
+                    <option value="${s.id}">
+                        ${esc(s.name)}
+                    </option>
+
+                `).join("");
+
+        });
+
+}
+
+
+async function addSubject(){
+
+    const name =
+        document.getElementById("newSubject")
+        .value.trim();
+
+
+    const class_id =
+        document.getElementById("subjectClass")
+        .value;
+
+
+    const semester_id =
+        document.getElementById("subjectSemester")
+        .value;
+
+
+    const medium =
+        document.getElementById("subjectMedium")
+        .value;
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("subjects")
+        .insert({
+            name,
+            class_id,
+            semester_id,
+            medium_id:medium || null
+        });
+
+
+    app();
+
+}
+
+
+async function editSubject(id){
+
+    const {data} =
+        await supabaseClient
+        .from("subjects")
+        .select("name")
+        .eq("id",id)
+        .single();
+
+
+    const name =
+        prompt("New subject name:",data.name);
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("subjects")
+        .update({name})
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+async function deleteSubject(id){
+
+    if(!confirm("Subject delete करें?"))
+        return;
+
+
+    await supabaseClient
+        .from("subjects")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN CHAPTERS
+==================================================== */
+
+async function adminChapters(){
+
+    const {data:subjects} =
+        await supabaseClient
+        .from("subjects")
+        .select("*")
+        .order("id");
+
+
+    const {data:chapters} =
+        await supabaseClient
+        .from("chapters")
+        .select("*")
+        .order("id");
+
+
+    return `
+
+        <div class="card">
+
+            <h2>
+                📖 Add Chapter
+            </h2>
+
+            <div class="form">
+
+                <select
+                    id="chapterSubject"
+                    class="input">
+
+                    ${
+                        (subjects||[])
+                        .map(s=>`
+
+                            <option value="${s.id}">
+                                ${esc(s.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <input
+                    id="newChapter"
+                    class="input"
+                    placeholder="Chapter name">
+
+
+                <button
+                    class="btn"
+                    onclick="addChapter()">
+
+                    + Add Chapter
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Chapters
+            </h2>
+
+            ${
+                (chapters||[])
+                .map(c=>`
+
+                    <div class="item">
+
+                        <b>
+                            ${esc(c.name)}
+                        </b>
+
+                        <div>
+
+                            <button
+                                class="btn gray"
+                                onclick="editChapter('${c.id}')">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="btn red"
+                                onclick="deleteChapter('${c.id}')">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+async function addChapter(){
+
+    const name =
+        document.getElementById("newChapter")
+        .value.trim();
+
+
+    const subject_id =
+        document.getElementById("chapterSubject")
+        .value;
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("chapters")
+        .insert({
+            name,
+            subject_id
+        });
+
+
+    app();
+
+}
+
+
+async function editChapter(id){
+
+    const {data} =
+        await supabaseClient
+        .from("chapters")
+        .select("name")
+        .eq("id",id)
+        .single();
+
+
+    const name =
+        prompt("New chapter name:",data.name);
+
+
+    if(!name)return;
+
+
+    await supabaseClient
+        .from("chapters")
+        .update({name})
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+async function deleteChapter(id){
+
+    if(!confirm("Chapter और PDF data delete होगा. Continue?"))
+        return;
+
+
+    await supabaseClient
+        .from("chapters")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   ADMIN PDF
+==================================================== */
+
+async function adminPdfs(){
+
+    const {data:classes} =
+        await supabaseClient
+        .from("classes")
+        .select("*")
+        .order("id");
+
+
+    const {data:subjects} =
+        await supabaseClient
+        .from("subjects")
+        .select("*")
+        .order("id");
+
+
+    const {data:chapters} =
+        await supabaseClient
+        .from("chapters")
+        .select("*")
+        .order("id");
+
+
+    const {data:materials} =
+        await supabaseClient
+        .from("materials")
+        .select("*")
+        .order("created_at");
+
+
+    return `
+
+        <div class="card">
+
+            <h2>
+                📄 Upload PDF
+            </h2>
+
+            <div class="form">
+
+                <select
+                    id="pdfClass"
+                    class="input">
+
+                    ${
+                        (classes||[])
+                        .map(c=>`
+
+                            <option value="${c.id}">
+                                ${esc(c.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <select
+                    id="pdfSubject"
+                    class="input">
+
+                    ${
+                        (subjects||[])
+                        .map(s=>`
+
+                            <option value="${s.id}">
+                                ${esc(s.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <select
+                    id="pdfChapter"
+                    class="input">
+
+                    ${
+                        (chapters||[])
+                        .map(c=>`
+
+                            <option value="${c.id}">
+                                ${esc(c.name)}
+                            </option>
+
+                        `).join("")
+                    }
+
+                </select>
+
+
+                <input
+                    id="pdfTitle"
+                    class="input"
+                    placeholder="PDF title">
+
+
+                <input
+                    id="pdfDescription"
+                    class="input"
+                    placeholder="Description">
+
+
+                <input
+                    id="pdfFile"
+                    class="input"
+                    type="file"
+                    accept="application/pdf">
+
+
+                <button
+                    class="btn green"
+                    onclick="uploadPdf()">
+
+                    ⬆ Upload PDF
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                Uploaded PDFs
+            </h2>
+
+            ${
+                (materials||[])
+                .map(p=>`
+
+                    <div class="item">
+
+                        <div>
+
+                            <b>
+                                📄 ${esc(p.title)}
+                            </b>
+
+                            <div class="small muted">
+
+                                ${esc(p.description || "")}
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="btn red"
+                            onclick="deletePdf('${p.id}')">
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                `).join("")
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+async function uploadPdf(){
+
+    const file =
+        document.getElementById("pdfFile")
+        .files[0];
+
+
+    const title =
+        document.getElementById("pdfTitle")
+        .value.trim()
+        ||
+        file?.name
+        ||
+        "";
+
+
+    const description =
+        document.getElementById("pdfDescription")
+        .value.trim();
+
+
+    const chapterId =
+        document.getElementById("pdfChapter")
+        .value;
+
+
+    if(!file){
+
+        alert("PDF file चुनें।");
+
+        return;
+
+    }
+
+
+    if(file.type !== "application/pdf"){
+
+        alert("सिर्फ PDF upload करें।");
+
+        return;
+
+    }
+
+
+    const safeName =
+        file.name
+        .replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+    const path =
+        currentUser.id
+        +
+        "/"
+        +
+        Date.now()
+        +
+        "-"
+        +
+        safeName;
+
+
+    const upload =
+        await supabaseClient
+        .storage
+        .from("study-pdfs")
+        .upload(
+            path,
+            file,
+            {
+                contentType:"application/pdf",
+                upsert:false
+            }
+        );
+
+
+    if(upload.error){
+
+        alert(upload.error.message);
+
+        return;
+
+    }
+
+
+    const insert =
+        await supabaseClient
+        .from("materials")
+        .insert({
+
+            title:title,
+
+            description:description,
+
+            chapter_id:chapterId,
+
+            storage_path:path
+
+        });
+
+
+    if(insert.error){
+
+        await supabaseClient
+            .storage
+            .from("study-pdfs")
+            .remove([path]);
+
+        alert(insert.error.message);
+
+        return;
+
+    }
+
+
+    alert("PDF successfully upload हो गई।");
+
+    app();
+
+}
+
+
+async function deletePdf(id){
+
+    if(!confirm("PDF delete करें?"))
+        return;
+
+
+    const {data,error} =
+        await supabaseClient
+        .from("materials")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    await supabaseClient
+        .storage
+        .from("study-pdfs")
+        .remove([
+            data.storage_path
+        ]);
+
+
+    await supabaseClient
+        .from("materials")
+        .delete()
+        .eq("id",id);
+
+
+    app();
+
+}
+
+
+/* ====================================================
+   PDF VIEWER
+==================================================== */
+
+function viewerHtml(){
+
+    if(!pdfWindow)
+        return "";
+
+
+    return `
+
+        <div class="viewer">
+
+            <div class="viewer-box">
+
+                <div class="viewer-head">
+
+                    <b>
+                        ${esc(pdfWindow.title)}
+                    </b>
 
                     <button
-                        onclick="alert('यहाँ बाद में PDF खुलेगी।')">
+                        class="btn gray"
+                        onclick="pdfWindow=null;app()">
 
-                        Open PDF
+                        Close
 
                     </button>
 
                 </div>
 
 
-                <div class="medium-card">
-
-                    <div class="medium-icon">
-                        📝
-                    </div>
-
-                    <h2>
-                        Important Questions
-                    </h2>
-
-                    <p>
-                        अभी PDF upload नहीं की गई है।
-                    </p>
-
-                    <br>
-
-                    <button
-                        onclick="alert('यहाँ बाद में PDF खुलेगी।')">
-
-                        Open PDF
-
-                    </button>
-
-                </div>
-
+                <iframe
+                    class="viewer-frame"
+                    src="${pdfWindow.url}">
+                </iframe>
 
             </div>
 
@@ -985,16 +2518,48 @@ function showPDFs(chapter) {
     `;
 
 }
-/* ==========================================
-   MEDIUM SELECT
-========================================== */
 
 
-/* ==========================================
-   START APP
-========================================== */
+/* ====================================================
+   PATCH VIEWER INTO RENDER
+==================================================== */
 
-showLogin();
+const originalRender = render;
+
+render = function(){
+
+    const base =
+        originalRender();
+
+    return base + viewerHtml();
+
+};
+
+
+/* ====================================================
+   START
+==================================================== */
+
+(async function(){
+
+    const result =
+        await supabaseClient.auth
+        .getSession();
+
+
+    if(result.data.session){
+
+        currentUser =
+            result.data.session.user;
+
+        await loadProfile();
+
+    }
+
+
+    app();
+
+})();
 
 </script>
 
