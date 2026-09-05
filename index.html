@@ -243,71 +243,34 @@ body{
    LOGIN PAGE
 ========================================== */
 
-function showLogin(){
+function login() {
 
-    document.getElementById("app").innerHTML = `
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-        <div class="login-page">
+    if (
+        email === "admin@example.com" &&
+        password === "admin123"
+    ) {
 
-            <div class="login-box">
+        showAdmin();
 
-                <div class="logo">
-                    📚 Student PDF Library
-                </div>
+    }
+    else if (
+        email === "student@example.com" &&
+        password === "student123"
+    ) {
 
-                <div class="subtitle">
-                    Student Study Material Portal
-                </div>
+        showMedium();
 
+    }
+    else {
 
-                <input
-                    type="email"
-                    id="email"
-                    class="input"
-                    placeholder="Enter Email"
-                >
+        alert("Email या Password गलत है।");
 
-
-                <input
-                    type="password"
-                    id="password"
-                    class="input"
-                    placeholder="Enter Password"
-                >
-
-
-                <button
-                    class="btn"
-                    onclick="login()"
-                >
-                    Login
-                </button>
-
-
-                <div class="demo">
-
-                    <b>Demo Student Login</b>
-
-                    <br>
-
-                    Email:
-                    student@example.com
-
-                    <br>
-
-                    Password:
-                    student123
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
+    }
 
 }
-
 
 /* ==========================================
    LOGIN FUNCTION
