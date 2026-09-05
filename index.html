@@ -118,248 +118,7 @@
 </div>
 
 <script>
-
 function login() {
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    if (
-        email === "student@example.com" &&
-        password === "student123"
-    ) {
-
-        alert("Login successful!");
-
-    } else {
-
-        alert("Email या Password गलत है।");
-
-    }
-
-}
-
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Student PDF Library</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial, sans-serif;
-    background:#f3f6fb;
-    color:#172033;
-}
-
-/* Login Page */
-
-.login-page{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    background:linear-gradient(135deg,#eef4ff,#f5f0ff);
-}
-
-.login-box{
-    width:100%;
-    max-width:400px;
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.10);
-}
-
-.logo{
-    text-align:center;
-    font-size:25px;
-    font-weight:bold;
-    color:#1e3a8a;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    text-align:center;
-    color:#6b7280;
-    margin-bottom:25px;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin-bottom:14px;
-    border:1px solid #d1d5db;
-    border-radius:10px;
-    font-size:16px;
-}
-
-button{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#1d4ed8;
-}
-
-.demo{
-    margin-top:18px;
-    padding:12px;
-    border-radius:10px;
-    background:#eff6ff;
-    color:#1e3a8a;
-    font-size:14px;
-}
-
-/* Main Page */
-
-.page{
-    min-height:100vh;
-    padding:25px 15px;
-}
-
-.header{
-    max-width:1000px;
-    margin:0 auto 25px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:white;
-    padding:25px;
-    border-radius:20px;
-    text-align:center;
-}
-
-.header h1{
-    margin-bottom:8px;
-}
-
-.medium-container{
-    max-width:900px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.medium-card{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 7px 22px rgba(0,0,0,0.08);
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.medium-card:hover{
-    transform:translateY(-4px);
-}
-
-.medium-icon{
-    font-size:45px;
-    margin-bottom:15px;
-}
-
-.medium-card h2{
-    margin-bottom:8px;
-}
-
-.medium-card p{
-    color:#6b7280;
-}
-
-.logout{
-    width:auto;
-    padding:9px 15px;
-    background:#dc2626;
-    margin-top:15px;
-}
-
-</style>
-</head>
-
-<body>
-
-<div id="app"></div>
-
-<script>
-
-/* =========================
-   LOGIN PAGE
-========================= */
-
-function showLogin(){
-
-    document.getElementById("app").innerHTML = `
-
-        <div class="login-page">
-
-            <div class="login-box">
-
-                <div class="logo">
-                    📚 Student PDF Library
-                </div>
-
-                <div class="subtitle">
-                    Student Study Material Portal
-                </div>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter Email">
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter Password">
-
-                <button onclick="login()">
-                    Login
-                </button>
-
-                <div class="demo">
-
-                    <b>Demo Login</b><br><br>
-
-                    Email: student@example.com<br>
-                    Password: student123
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-function login(){
 
     const email =
         document.getElementById("email").value.trim();
@@ -367,45 +126,58 @@ function login(){
     const password =
         document.getElementById("password").value;
 
-    if(
+    if (
         email === "student@example.com" &&
         password === "student123"
-    ){
+    ) {
 
         showMedium();
 
-    }else{
+    } else {
 
         alert("Email या Password गलत है।");
 
     }
-
 }
 
 
-/* =========================
-   MEDIUM PAGE
-========================= */
-
-function showMedium(){
+function showMedium() {
 
     document.getElementById("app").innerHTML = `
 
         <div class="page">
 
-            <div class="header">
+            <div class="login-box">
 
                 <h1>
                     🌐 Medium चुनें
                 </h1>
 
-                <p>
+                <p class="subtitle">
                     अपना अध्ययन माध्यम चुनें
                 </p>
 
                 <button
-                    class="logout"
-                    onclick="showLogin()">
+                    onclick="selectMedium('Hindi')">
+
+                    🇮🇳 हिंदी माध्यम
+
+                </button>
+
+                <br><br>
+
+                <button
+                    onclick="selectMedium('English')">
+
+                    🇬🇧 English Medium
+
+                </button>
+
+                <br><br>
+
+                <button
+                    onclick="showLogin()"
+                    style="background:#dc2626">
 
                     Logout
 
@@ -413,62 +185,20 @@ function showMedium(){
 
             </div>
 
-
-            <div class="medium-container">
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectMedium('Hindi')">
-
-                    <div class="medium-icon">
-                        🇮🇳
-                    </div>
-
-                    <h2>
-                        हिंदी माध्यम
-                    </h2>
-
-                    <p>
-                        Hindi Medium
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="medium-card"
-                    onclick="selectMedium('English')">
-
-                    <div class="medium-icon">
-                        🇬🇧
-                    </div>
-
-                    <h2>
-                        English Medium
-                    </h2>
-
-                    <p>
-                        English Medium
-                    </p>
-
-                </div>
-
-
-            </div>
-
         </div>
 
     `;
+}
+
+
+function showLogin() {
+
+    location.reload();
 
 }
 
 
-/* =========================
-   MEDIUM SELECT
-========================= */
-
-function selectMedium(medium){
+function selectMedium(medium) {
 
     alert(
         "आपने " + medium + " Medium चुना है।"
@@ -476,14 +206,4 @@ function selectMedium(medium){
 
 }
 
-
-/* =========================
-   START
-========================= */
-
-showLogin();
-
-</script>
-
-</body>
-</html>
+ 
