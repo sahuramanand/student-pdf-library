@@ -966,23 +966,20 @@ function selectStudentClass(id){
 /* =====================================================
    STUDENT SEMESTER
 ===================================================== */
+
 function studentSemesterPage(){
 
     const classId = selected.classId;
 
-    let className = "";
+    const className =
+        db.classes.find(function(c){
+            return c.id === classId;
+        })?.name || "";
 
-    if(classId === "bsc"){
-        className = "B.Sc.";
-    }
-
-    else if(classId === "bcom"){
-        className = "B.Com.";
-    }
-
-    else if(classId === "arts"){
-        className = "Arts";
-    }
+    const semesters =
+        db.semesters.filter(function(s){
+            return s.classId === classId;
+        });
 
     document.getElementById("app").innerHTML = `
 
@@ -995,9 +992,7 @@ function studentSemesterPage(){
             <button
                 class="btn gray"
                 onclick="studentClassPage()">
-
                 ← Back
-
             </button>
 
         </div>
@@ -1012,7 +1007,7 @@ function studentSemesterPage(){
                 </h1>
 
                 <p>
-                    ${className} के लिए Semester चुनें
+                    ${esc(className)} के लिए Semester चुनें
                 </p>
 
             </div>
@@ -1020,96 +1015,43 @@ function studentSemesterPage(){
 
             <div class="grid">
 
+                ${
+                    semesters.length
 
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('1')">
+                    ?
 
-                    <div class="icon">
-                        1️⃣
-                    </div>
+                    semesters.map(function(semester){
 
-                    <h2>
-                        Semester 1
-                    </h2>
+                        return `
 
-                </div>
+                            <div
+                                class="tile"
+                                onclick="
+                                    selectStudentSemester('${semester.id}')
+                                ">
 
+                                <div class="icon">
+                                    📘
+                                </div>
 
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('2')">
+                                <h2>
+                                    ${esc(semester.name)}
+                                </h2>
 
-                    <div class="icon">
-                        2️⃣
-                    </div>
+                            </div>
 
-                    <h2>
-                        Semester 2
-                    </h2>
+                        `;
 
-                </div>
+                    }).join("")
 
+                    :
 
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('3')">
-
-                    <div class="icon">
-                        3️⃣
-                    </div>
-
-                    <h2>
-                        Semester 3
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('4')">
-
-                    <div class="icon">
-                        4️⃣
-                    </div>
-
-                    <h2>
-                        Semester 4
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('5')">
-
-                    <div class="icon">
-                        5️⃣
-                    </div>
-
-                    <h2>
-                        Semester 5
-                    </h2>
-
-                </div>
-
-
-                <div
-                    class="tile"
-                    onclick="selectStudentSemester('6')">
-
-                    <div class="icon">
-                        6️⃣
-                    </div>
-
-                    <h2>
-                        Semester 6
-                    </h2>
-
-                </div>
-
+                    `
+                        <div class="card">
+                            अभी कोई Semester उपलब्ध नहीं है।
+                        </div>
+                    `
+                }
 
             </div>
 
