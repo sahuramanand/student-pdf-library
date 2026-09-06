@@ -589,7 +589,6 @@ function showLoginChoice(){
 /* =====================================================
    STUDENT LOGIN
 ===================================================== */
-
 function studentLoginPage(){
 
     return `
@@ -603,43 +602,34 @@ function studentLoginPage(){
                 </h1>
 
                 <p style="text-align:center;color:#6b7280">
-                    केवल अपना mobile number डालें
+                    अपना 10-digit Mobile Number डालें
                 </p>
 
-                <div class="form">
+                <input
+                    id="studentPhone"
+                    class="input"
+                    type="tel"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="Enter Mobile Number"
+                >
 
-                    <input
-                        id="studentPhone"
-                        class="input"
-                        type="tel"
-                        maxlength="10"
-                        placeholder="10 digit mobile number">
+                <button
+                    class="btn"
+                    onclick="studentLogin()">
 
-                    <button
-                        class="btn"
-                        onclick="studentLogin()">
+                    Login
 
-                        Login
+                </button>
 
-                    </button>
+                <button
+                    class="btn gray"
+                    style="margin-top:10px"
+                    onclick="showLoginChoice()">
 
-                    <button
-                        class="btn gray"
-                        onclick="showLoginChoice()">
+                    ← Back
 
-                        ← Back
-
-                    </button>
-
-                </div>
-
-                <div class="notice small">
-
-                    Demo version में OTP नहीं है।
-                    Student का mobile number केवल access
-                    पहचान के लिए लिया जा रहा है।
-
-                </div>
+                </button>
 
             </div>
 
