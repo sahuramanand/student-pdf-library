@@ -340,11 +340,11 @@ function esc(text){
 
 }
 
+async function app(){
 
-function app(){
+    const html = await render();
 
-    document.getElementById("app")
-        .innerHTML = render();
+    document.getElementById("app").innerHTML = html;
 
 }
 
@@ -352,8 +352,7 @@ function app(){
 /* ====================================================
    LOGIN
 ==================================================== */
-
-function render(){
+async function render(){
 
     if(!currentUser){
 
@@ -361,16 +360,22 @@ function render(){
 
     }
 
-    if(currentProfile?.role === "admin"){
+    if(currentProfile && currentProfile.role === "admin"){
 
-        return topbar() + adminPage();
+        return topbar() + await adminPage();
 
     }
 
-    return topbar() + studentPage();
+    return topbar() + await studentPage();
 
 }
+async function app(){
 
+    const html = await render();
+
+    document.getElementById("app").innerHTML = html;
+
+}
 
 function loginPage(){
 
