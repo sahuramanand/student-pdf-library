@@ -855,7 +855,6 @@ function selectStudentMedium(id){
 /* =====================================================
    STUDENT CLASS
 ===================================================== */
-
 function studentClassPage(){
 
     document.getElementById("app").innerHTML = `
@@ -869,13 +868,10 @@ function studentClassPage(){
             <button
                 class="btn gray"
                 onclick="studentMediumPage()">
-
                 ← Back
-
             </button>
 
         </div>
-
 
         <main class="container">
 
@@ -891,26 +887,63 @@ function studentClassPage(){
 
             </div>
 
-
             <div class="grid">
 
-                ${db.classes.map(c=>`
+                <div
+                    class="tile"
+                    onclick="selectStudentClass('bsc')">
 
-                    <div
-                        class="tile"
-                        onclick="selectStudentClass('${c.id}')">
-
-                        <div class="icon">
-                            🎓
-                        </div>
-
-                        <h2>
-                            ${esc(c.name)}
-                        </h2>
-
+                    <div class="icon">
+                        🎓
                     </div>
 
-                `).join("")}
+                    <h2>
+                        B.Sc.
+                    </h2>
+
+                    <p>
+                        Bachelor of Science
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentClass('bcom')">
+
+                    <div class="icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        B.Com.
+                    </h2>
+
+                    <p>
+                        Bachelor of Commerce
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentClass('arts')">
+
+                    <div class="icon">
+                        🎓
+                    </div>
+
+                    <h2>
+                        Arts
+                    </h2>
+
+                    <p>
+                        Bachelor of Arts
+                    </p>
+
+                </div>
 
             </div>
 
@@ -919,6 +952,7 @@ function studentClassPage(){
     `;
 
 }
+
 
 function selectStudentClass(id){
 
