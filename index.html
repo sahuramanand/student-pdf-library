@@ -2846,12 +2846,19 @@ function updatePdfChapter(){
 function uploadPdf(){
 
     const mediumId =
-        selected.medium;
+    document.getElementById("pdfMedium").value;
 
     const file =
         document.getElementById("pdfFile")
         .files[0];
+    
+if(!mediumId){
 
+    alert("PDF का Medium चुनें।");
+
+    return;
+
+}
     const title =
         document.getElementById("pdfTitle")
         .value
