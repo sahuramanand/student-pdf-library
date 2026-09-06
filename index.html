@@ -2512,11 +2512,35 @@ function adminPdfs(){
             </h2>
 
             <p class="muted">
-                Class → Semester → Subject → Chapter
-                चुनकर PDF upload करें।
+                पहले Medium चुनें, फिर Class → Semester →
+                Subject → Chapter चुनकर PDF upload करें।
             </p>
 
             <div class="form">
+
+
+                <!-- MEDIUM -->
+
+                <select
+                    id="pdfMedium"
+                    class="input">
+
+                    <option value="">
+                        -- Medium चुनें --
+                    </option>
+
+                    <option value="hi">
+                        🇮🇳 Hindi
+                    </option>
+
+                    <option value="en">
+                        🇬🇧 English
+                    </option>
+
+                </select>
+
+
+                <!-- CLASS -->
 
                 <select
                     id="pdfClass"
@@ -2540,6 +2564,8 @@ function adminPdfs(){
                 </select>
 
 
+                <!-- SEMESTER -->
+
                 <select
                     id="pdfSemester"
                     class="input"
@@ -2551,6 +2577,8 @@ function adminPdfs(){
 
                 </select>
 
+
+                <!-- SUBJECT -->
 
                 <select
                     id="pdfSubject"
@@ -2564,6 +2592,8 @@ function adminPdfs(){
                 </select>
 
 
+                <!-- CHAPTER -->
+
                 <select
                     id="pdfChapter"
                     class="input">
@@ -2575,11 +2605,15 @@ function adminPdfs(){
                 </select>
 
 
+                <!-- PDF TITLE -->
+
                 <input
                     id="pdfTitle"
                     class="input"
                     placeholder="PDF Title">
 
+
+                <!-- DESCRIPTION -->
 
                 <textarea
                     id="pdfDescription"
@@ -2588,12 +2622,16 @@ function adminPdfs(){
                     rows="3"></textarea>
 
 
+                <!-- PDF FILE -->
+
                 <input
                     id="pdfFile"
                     class="input"
                     type="file"
                     accept="application/pdf">
 
+
+                <!-- UPLOAD -->
 
                 <button
                     class="btn green"
@@ -2611,10 +2649,14 @@ function adminPdfs(){
         <div class="card">
 
             <h2>
-                Uploaded PDFs
+                📚 Uploaded PDFs
             </h2>
 
             ${
+                db.pdfs.length > 0
+
+                ?
+
                 db.pdfs.map(p=>`
 
                     <div class="item">
@@ -2627,11 +2669,21 @@ function adminPdfs(){
 
                             <div class="small muted">
 
+                                Medium:
+                                ${
+                                    p.mediumId === "hi"
+                                    ? "Hindi"
+                                    : "English"
+                                }
+
+                                <br>
+
+                                Chapter:
                                 ${
                                     esc(
-                                        db.chapters
-                                        .find(
-                                            c=>c.id===p.chapterId
+                                        db.chapters.find(
+                                            c =>
+                                                c.id === p.chapterId
                                         )?.name || ""
                                     )
                                 }
@@ -2652,10 +2704,14 @@ function adminPdfs(){
                     </div>
 
                 `).join("")
-                ||
-                `<p class="muted">
-                    अभी कोई PDF upload नहीं हुई है।
-                </p>`
+
+                :
+
+                `
+                    <p class="muted">
+                        अभी कोई PDF upload नहीं हुई है।
+                    </p>
+                `
             }
 
         </div>
@@ -2789,13 +2845,17 @@ function updatePdfChapter(){
 
 function uploadPdf(){
 
+    const mediumId =
+        selected.medium;
+
     const file =
         document.getElementById("pdfFile")
         .files[0];
 
     const title =
         document.getElementById("pdfTitle")
-        .value.trim()
+        .value
+        .trim()
         ||
         file?.name
         ||
@@ -2803,12 +2863,30 @@ function uploadPdf(){
 
     const description =
         document.getElementById("pdfDescription")
-        .value.trim();
+        .value
+        .trim();
 
     const chapterId =
         document.getElementById("pdfChapter")
         .value;
 
+
+    /* =========================
+       CHECK MEDIUM
+    ========================= */
+
+    if(!mediumId){
+
+        alert("PDF का Medium चुनें।");
+
+        return;
+
+    }
+
+
+    /* =========================
+       CHECK FILE
+    ========================= */
 
     if(!file){
 
@@ -2828,6 +2906,10 @@ function uploadPdf(){
     }
 
 
+    /* =========================
+       CHECK CHAPTER
+    ========================= */
+
     if(!chapterId){
 
         alert("Chapter चुनें।");
@@ -2836,6 +2918,10 @@ function uploadPdf(){
 
     }
 
+
+    /* =========================
+       READ PDF
+    ========================= */
 
     const reader =
         new FileReader();
@@ -2851,6 +2937,8 @@ function uploadPdf(){
 
             description:description,
 
+            mediumId:mediumId,
+
             chapterId:chapterId,
 
             data:reader.result
@@ -2860,9 +2948,13 @@ function uploadPdf(){
 
         saveDB();
 
+
         alert(
-            "PDF upload हो गई।"
+            mediumId === "hi"
+            ? "Hindi PDF successfully upload हो गई।"
+            : "English PDF successfully upload हो गई।"
         );
+
 
         adminDashboard();
 
