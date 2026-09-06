@@ -1292,30 +1292,24 @@ function selectStudentChapter(id){
    STUDENT PDF
 ===================================================== */
 
-function studentPdfPage(){
+    function studentPdfPage(){
 
-    const list =
-        db.pdfs.filter(function(p){
+    const list = db.pdfs.filter(function(p){
 
-            return (
-                p.chapterId === selected.chapterId &&
-                p.mediumId === selected.medium
-            );
+        return (
+            p.chapterId === selected.chapterId &&
+            p.mediumId === selected.medium
+        );
 
-        });
+    });
 
+    const isEnglish = selected.medium === "en";
 
-    const isEnglish =
-        selected.medium === "en";
+    const chapter = db.chapters.find(function(c){
 
+        return c.id === selected.chapterId;
 
-    const chapter =
-        db.chapters.find(function(c){
-
-            return c.id === selected.chapterId;
-
-        });
-
+    });
 
     document.getElementById("app").innerHTML = `
 
@@ -1341,17 +1335,21 @@ function studentPdfPage(){
             <div class="hero">
 
                 <h1>
+
                     📄
+
                     ${
                         isEnglish
                         ? "Study Material"
                         : "PDF अध्ययन सामग्री"
                     }
+
                 </h1>
 
-
                 <p>
+
                     ${esc(chapter?.name || "")}
+
                 </p>
 
             </div>
@@ -1421,18 +1419,6 @@ function studentPdfPage(){
 
                         </h3>
 
-                        <p class="muted">
-
-                            ${
-                                isEnglish
-
-                                ? "Please check again later."
-
-                                : "कृपया बाद में फिर देखें।"
-                            }
-
-                        </p>
-
                     </div>
 
                 `
@@ -1444,6 +1430,7 @@ function studentPdfPage(){
     `;
 
 }
+
 
 
 /* =====================================================
