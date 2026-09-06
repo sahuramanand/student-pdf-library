@@ -1131,17 +1131,21 @@ function selectStudentSemester(semester){
 /* =====================================================
    STUDENT SUBJECT
 ===================================================== */
-
 function studentSubjectPage(){
 
-    const list =
-        db.subjects.filter(
-            s =>
-                s.classId === selected.classId &&
-                s.semesterId === selected.semesterId
+    const classId = selected.classId;
+    const semesterId = selected.semesterId;
+
+    const subjects = db.subjects.filter(function(subject){
+
+        return (
+            subject.classId === classId &&
+            subject.semesterId === semesterId
         );
 
-    const isEnglish =
+    });
+
+    const english =
         selected.medium === "en";
 
     document.getElementById("app").innerHTML = `
@@ -1168,13 +1172,19 @@ function studentSubjectPage(){
             <div class="hero">
 
                 <h1>
-                    📚 ${isEnglish ? "Select Subject" : "Subject चुनें"}
+                    ${
+                        english
+                        ? "📚 Select Subject"
+                        : "📚 Subject चुनें"
+                    }
                 </h1>
 
                 <p>
-                    ${isEnglish
+                    ${
+                        english
                         ? "Choose your subject"
-                        : "अपना विषय चुनें"}
+                        : "अपना विषय चुनें"
+                    }
                 </p>
 
             </div>
@@ -1182,23 +1192,54 @@ function studentSubjectPage(){
 
             <div class="grid">
 
-                ${list.map(s=>`
+                ${
+                    subjects.length
 
-                    <div
-                        class="tile"
-                        onclick="selectStudentSubject('${s.id}')">
+                    ?
 
-                        <div class="icon">
-                            📚
+                    subjects.map(function(subject){
+
+                        return `
+
+                            <div
+                                class="tile"
+                                onclick="
+                                    selectStudentSubject('${subject.id}')
+                                ">
+
+                                <div class="icon">
+                                    📚
+                                </div>
+
+                                <h2>
+                                    ${esc(subject.name)}
+                                </h2>
+
+                            </div>
+
+                        `;
+
+                    }).join("")
+
+                    :
+
+                    `
+
+                        <div class="card">
+
+                            <h3>
+                                ${
+                                    english
+                                    ? "No subjects available."
+                                    : "अभी कोई विषय उपलब्ध नहीं है।"
+                                }
+                            </h3>
+
                         </div>
 
-                        <h2>
-                            ${esc(s.name)}
-                        </h2>
+                    `
 
-                    </div>
-
-                `).join("")}
+                }
 
             </div>
 
@@ -1207,6 +1248,16 @@ function studentSubjectPage(){
     `;
 
 }
+
+
+function selectStudentSubject(id){
+
+    selected.subjectId = id;
+
+    studentChapterPage();
+
+}
+
 
 function selectStudentSubject(id){
 
