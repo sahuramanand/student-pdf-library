@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Study Library</title>
-
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+<style>
 <style>
 *{box-sizing:border-box}
 body{
@@ -223,7 +226,17 @@ button{cursor:pointer;border:0}
 /* =====================================================
    APP SETTINGS
 ===================================================== */
+const SUPABASE_URL = 
+    "https://wxjoiihbhxtsoqjgvcwg.supabase.co";
 
+const SUPABASE_PUBLISHABLE_KEY =
+"https://wxjoiihbhxtsoqjgvcwg.supabase.co";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 const ADMIN_EMAIL = "sahuramanand039@gmail.com";
 const ADMIN_PASSWORD = "ramanand@07";
 
