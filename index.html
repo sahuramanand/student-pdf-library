@@ -966,13 +966,23 @@ function selectStudentClass(id){
 /* =====================================================
    STUDENT SEMESTER
 ===================================================== */
-
 function studentSemesterPage(){
 
-    const list =
-        db.semesters.filter(
-            s => s.classId === selected.classId
-        );
+    const classId = selected.classId;
+
+    let className = "";
+
+    if(classId === "bsc"){
+        className = "B.Sc.";
+    }
+
+    else if(classId === "bcom"){
+        className = "B.Com.";
+    }
+
+    else if(classId === "arts"){
+        className = "Arts";
+    }
 
     document.getElementById("app").innerHTML = `
 
@@ -1002,11 +1012,7 @@ function studentSemesterPage(){
                 </h1>
 
                 <p>
-                    ${esc(
-                        db.classes.find(
-                            c=>c.id===selected.classId
-                        )?.name || ""
-                    )}
+                    ${className} के लिए Semester चुनें
                 </p>
 
             </div>
@@ -1014,23 +1020,96 @@ function studentSemesterPage(){
 
             <div class="grid">
 
-                ${list.map(s=>`
 
-                    <div
-                        class="tile"
-                        onclick="selectStudentSemester('${s.id}')">
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('1')">
 
-                        <div class="icon">
-                            📘
-                        </div>
-
-                        <h2>
-                            ${esc(s.name)}
-                        </h2>
-
+                    <div class="icon">
+                        1️⃣
                     </div>
 
-                `).join("")}
+                    <h2>
+                        Semester 1
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('2')">
+
+                    <div class="icon">
+                        2️⃣
+                    </div>
+
+                    <h2>
+                        Semester 2
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('3')">
+
+                    <div class="icon">
+                        3️⃣
+                    </div>
+
+                    <h2>
+                        Semester 3
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('4')">
+
+                    <div class="icon">
+                        4️⃣
+                    </div>
+
+                    <h2>
+                        Semester 4
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('5')">
+
+                    <div class="icon">
+                        5️⃣
+                    </div>
+
+                    <h2>
+                        Semester 5
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="tile"
+                    onclick="selectStudentSemester('6')">
+
+                    <div class="icon">
+                        6️⃣
+                    </div>
+
+                    <h2>
+                        Semester 6
+                    </h2>
+
+                </div>
+
 
             </div>
 
@@ -1040,14 +1119,14 @@ function studentSemesterPage(){
 
 }
 
-function selectStudentSemester(id){
 
-    selected.semesterId = id;
+function selectStudentSemester(semester){
+
+    selected.semesterId = semester;
 
     studentSubjectPage();
 
 }
-
 
 /* =====================================================
    STUDENT SUBJECT
